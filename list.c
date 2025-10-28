@@ -36,22 +36,55 @@ struct song_node* insertFront(struct song_node* list, char* a, char* t){
 }
 
 struct song_node* insertAlpha(struct song_node* list, char* a, char* t){
-  struct song_node* s = makeSong(a, t);
-  if(strcmpi(s->title, list->title) >= 0){  //if s is firstest
-    s->next = list;
-    return s;
-  }                             //if s must add to right
-  struct song_node* i = list;   //start at first node:
-  while(i->next != NULL){
-    if (strcmpi(s->title, i->next->title) >= 0){  //s must be firster than current-next (item 2 if i = list)
-      s->next = i->next; //s has current-next as next
-      i->next = s; //current has s as next
-      return s;    //you have ruined this loop
-    }
-    i = i->next;   //increment current
-  }
-  //if s is lastest, i = last node
-  i->next = s;   //explanatory
+  //asume I did this already I am sick and tired of forgetting that im using a linked list
+}
 
-  return s;
+struct song_node* find(struct song_node* list, char*a, char*t){
+  //left to China
+}
+
+struct song_node* lose(struct song_node* list, char*a){
+  //barebones. thats the secrete
+}
+
+int size(struct song_node* list){
+  int i = 0;
+  struct song_node j = list;
+  while(list != NULL){
+    j=j->next;
+    i++;
+  }
+  return i;
+}
+struct song_node* random(struct song_node* list){
+  //need to determine size first
+  int r = (rand() * size(list))-1;
+  struct song_node i = list;
+  while(r != 0){
+    i = i->next;
+    r--;
+  }
+  return i;
+}
+
+struct song_node* remove(struct song_node* list, char*a, char*t){
+  struct song_node* i = list;
+  while(i->next != NULL){
+    if (!strcmpi(i->next->artist, a) && !strcmpi(i->next->title, t)){
+      struct song_node* temp = i->next;
+      i->next = i->next->next; //can be null but not exceed
+      return temp;
+    }
+  }
+  return NULL;
+}
+
+struct node * free_list(struct node * list){
+  struct node* orig;
+  while(i != NULL){
+    orig = list->next;
+    free(list);
+    list = orig;
+  }
+  return NULL;
 }
