@@ -1,8 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "node.h"
 
+#include "node.h"
+struct list{
+  struct song_node *list;
+  int size;
+};
 
 
 int conLet(char c){
@@ -58,20 +59,20 @@ struct song_node* insertArt(struct song_node* list, char* a, char* t){
     if (firstinessArt > 0){
        s->next = i->next;
        i->next = s;
-       return s;
+       return list;
     }
     if (firstinessArt == 0 && firstinessTit >= 0){
                            //comparison if artist gives no info
       s->next = i->next;
       i->next = s;
-      return s;       //samish
+      return list;       //samish
     }
     i = i->next;   //increment current
   }
   //if s is SUPERLAST, i = last node
   i->next = s;   //explanatory, probably not needed but looks better
 
-  return s;
+  return list;
 }
 
 
@@ -92,6 +93,7 @@ struct song_node* find(struct song_node* list, char*a, char*t){
     if (!strcmpi(a, i->artist) && !strcmpi(t, i->title)){
        return i;
     }
+    i = i-> next;
   }
   return i;   //null
 }
@@ -104,6 +106,7 @@ struct song_node* lost(struct song_node* list, char*a){
     if (!strcmpi(a, i->artist)){
        return i;
     }
+    i = i-> next;
    }
   return i;
 }
@@ -124,7 +127,7 @@ int size(struct song_node* list){
 
 struct song_node* rando(struct song_node* list){
   //need to determine size first
-  int r = (rand() * size(list))-1;
+  int r = rand() % size(list)-1;
   struct song_node* i = list;
   while(r != 0){
     i = i->next;
@@ -136,8 +139,9 @@ struct song_node* rando(struct song_node* list){
 
 
 struct song_node* remov(struct song_node* list, char*a, char*t){
+
   struct song_node* i = list;
-  if (!strcmpi(i->next->artist, a) && !strcmpi(i->next->title, t)){
+  if (!strcmpi(i->artist, a) && !strcmpi(i->title, t)){
     list = list->next;     // if start node is removable just push ‘list’ right
   }
   while(i->next != NULL){ //will evaluate all except last node
@@ -168,15 +172,15 @@ struct song_node * free_list(struct song_node * list){
 void printArtist(struct song_node * list, char*a){
      struct song_node* i = list;
      while (i != NULL){
-        if (!strcmpi(i->next->artist, a)){
-            printf("%s : %s ", a, i->next->title);
+        if (!strcmpi(i->artist, a)){
+            printf("%s : %s ", a, i->title);
             i = i->next;
-            while(!strcmpi(i->next->artist, a)){
-                printf("%s", i->next->title);
+            while(i != NULL && !strcmpi(i->artist, a)){
+                printf("%s", i->title);
             }
-           break;
+           return;
         }
         i = i->next;
      }
-     printf("ur stupid");
+     printf("cringe");
    }
