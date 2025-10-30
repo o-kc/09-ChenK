@@ -1,5 +1,4 @@
 #include "node.h"
-#include "list.h"
 
 int conSym(char c){
     int i = conLet(c);
