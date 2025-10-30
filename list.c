@@ -7,8 +7,8 @@ struct list{
 
 
 int conLet(char c){
-  if ((int) c > 64 && (int) c < 91 ){
-    return c + 32;
+  if ((int) c > 96 && (int) c < 123 ){
+    return c - 32;
   }
   return (int) c;
 }
@@ -44,72 +44,20 @@ struct song_node* insertFront(struct song_node* list, char* a, char* t){
   return s;
 }
 
-<<<<<<< HEAD
-struct song_node* insertAlpha(struct song_node* list, char* a, char* t){
-  //asume I did this already I am sick and tired of forgetting that im using a linked list
-}
-
-struct song_node* find(struct song_node* list, char*a, char*t){
-  //left to China
-}
-
-struct song_node* lose(struct song_node* list, char*a){
-  //barebones. thats the secrete
-}
-
-int size(struct song_node* list){
-  int i = 0;
-  struct song_node j = list;
-  while(list != NULL){
-    j=j->next;
-    i++;
-  }
-  return i;
-}
-struct song_node* random(struct song_node* list){
-  //need to determine size first
-  int r = (rand() * size(list))-1;
-  struct song_node i = list;
-  while(r != 0){
-    i = i->next;
-    r--;
-  }
-  return i;
-}
-
-struct song_node* remove(struct song_node* list, char*a, char*t){
-  struct song_node* i = list;
-  while(i->next != NULL){
-    if (!strcmpi(i->next->artist, a) && !strcmpi(i->next->title, t)){
-      struct song_node* temp = i->next;
-      i->next = i->next->next; //can be null but not exceed
-      return temp;
-    }
-  }
-  return NULL;
-}
-
-struct node * free_list(struct node * list){
-  struct node* orig;
-  while(i != NULL){
-    orig = list->next;
-    free(list);
-    list = orig;
-  }
-  return NULL;
-=======
 
 
 struct song_node* insertArt(struct song_node* list, char* a, char* t){
   struct song_node* s = makeSong(a, t);
-  if(strcmpi(s->artist, list->artist) >= 0 && strcmpi(s->title, list->title) >= 0){   //SUPERFIRST
+  int firfirA = strcmpi(s->artist, list->artist);
+  int firfirT = strcmpi(s->title, list->title);
+  if(firfirA >= 0 || (firfirA == 0 && firfirT >= 0)){   //SUPERFIRST, but only check titles if OR equal
     s->next = list;
     return s;
   }                                          //if s must add to right
   struct song_node* i = list;   //starting at first node:
   while(i->next != NULL){
     int firstinessArt = strcmpi(s->artist, i->next->artist);
-    int firstinessTit = strcmpi(s->title, i->next->title) >= 0;
+    int firstinessTit = strcmpi(s->title, i->next->title);
     if (firstinessArt > 0){
        s->next = i->next;
        i->next = s;
@@ -132,6 +80,9 @@ struct song_node* insertArt(struct song_node* list, char* a, char* t){
 
 
 void print(struct song_node* list){
+  if (list == NULL){
+    return;
+  }
   printf("%s: ", list->artist);
   for(struct song_node* i = list; i != NULL; i=i->next){
     printf("[%s] ", i->title);
@@ -175,14 +126,16 @@ int size(struct song_node* list){
     s++;
   }
   return s;
->>>>>>> refs/remotes/origin/main
 }
 
 
 
 struct song_node* rando(struct song_node* list){
+  if (list == NULL){
+    return NULL;
+  }
   //need to determine size first
-  int r = rand() % size(list)-1;
+  int r = rand() % size(list);
   struct song_node* i = list;
   while(r != 0){
     i = i->next;
@@ -194,20 +147,24 @@ struct song_node* rando(struct song_node* list){
 
 
 struct song_node* remov(struct song_node* list, char*a, char*t){
-
   struct song_node* i = list;
+  if (i == NULL){
+    return NULL;
+  }
   if (!strcmpi(i->artist, a) && !strcmpi(i->title, t)){
-    list = list->next;     // if start node is removable just push ‘list’ right
+    struct song_node* temp = list->next;     // if start node is removable just push ‘list’ right
+    free(list);
+    return temp;
   }
   while(i->next != NULL){ //will evaluate all except last node
     if (!strcmpi(i->next->artist, a) && !strcmpi(i->next->title, t)){    //otherwise, need 2 nodes as reference: one before removable, one after
       struct song_node* temp = i->next;
       i->next = i->next->next; //can be null but not exceed            //before sets next to after, jumping over
-      return temp;    //OR free(temp);   and returntype void                                             //technically, null is also a node that before can jump to
+      free(temp);
+      return list;    //OR free(temp);   and returntype void           //technically, null is also a node that before can jump to
     }   //dont need to eval last note; we compare by ->next!!!
   }
-
-  return NULL;
+  return list;
 }
 
 
@@ -232,10 +189,26 @@ void printArtist(struct song_node * list, char*a){
             i = i->next;
             while(i != NULL && !strcmpi(i->artist, a)){
                 printf("%s", i->title);
+                i = i->next;
             }
            return;
         }
         i = i->next;
      }
-     printf("cringe");
+     printf("artist not found");
    }
+
+  int shuffleHelp(struct song_node * list, int ref, int* pool, int n){
+    struct song_node* i = list;
+    while (i != NULL){
+      for(int j = 0; j < n; j++){
+        if (ref == pool[j]){
+          printf("[%s %s]  ", i->artist, i->title);
+          break;
+        }
+      }
+      ref++;
+      i = i->next;
+    }
+    return ref;
+  }

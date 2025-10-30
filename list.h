@@ -25,4 +25,6 @@ struct song_node* remov(struct song_node* list, char*a, char*t);
 struct song_node * free_list(struct song_node * list);
 
 void printArtist(struct song_node * list, char*a);
+
+int shuffleHelp(struct song_node * list, int ref, int* pool, int n);
 #endif
