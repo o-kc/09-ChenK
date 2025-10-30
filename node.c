@@ -34,10 +34,15 @@ int strcmpi( char *s1, char *s2 ){
 
 struct song_node* makeSong(char*a, char*t){
   struct song_node* s = (struct song_node*) malloc(sizeof(struct song_node));
-  strncpy(s->artist, a, sizeof(s->artist)-1);
+  strncpy(s->artist, a, sizeof(s->artist)-1);    //WONT ADD NULL IF OVER 99, even if you raise capacity (length) of string
+  s->artist[sizeof(s->artist)-1] = '\0';
   strncpy(s->title, t, sizeof(s->title)-1);
+  s->title[sizeof(s->title)-1] = '\0';           //At that point, null index 99 as safeguard
   return s;
 }
+
+
+
 struct song_node* insertFront(struct song_node* list, char* a, char* t){
   struct song_node* s = makeSong(a, t);
   s->next = list;
@@ -48,6 +53,10 @@ struct song_node* insertFront(struct song_node* list, char* a, char* t){
 
 struct song_node* insertArt(struct song_node* list, char* a, char* t){
   struct song_node* s = makeSong(a, t);
+  if (list == NULL) {                         //EMPTY LIST
+     s->next = NULL;
+     return s;
+  }
   int firfirA = strcmpi(s->artist, list->artist);
   int firfirT = strcmpi(s->title, list->title);
   if(firfirA >= 0 || (firfirA == 0 && firfirT >= 0)){   //SUPERFIRST, but only check titles if OR equal

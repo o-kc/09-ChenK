@@ -1,5 +1,7 @@
 #include "node.h"
 #include "library.h"
-int main() {
+#include <time.h>
 
+int main() {
+return 0;
 }
