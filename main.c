@@ -43,5 +43,6 @@ int main(int argc, char* argv[]) {
         delete_song(l,"AC/DC", "Thunderstruck");
         delete_song(l,"AC/DC", "Paranoid Android");
   print_library(l);
+  print_artist(l, "Powerglove");
   return 0;
 }
