@@ -33,7 +33,12 @@ int main(int argc, char* argv[]) {
         add(l,"X Japan", "Forever Love");
         add(l,"Yeah Yeah Yeahs", "Maps");
         add(l,"#1 Dads", "So Soldier");
-        add(l,"+44", "When Your Heart Stops Beating");
+        add(l,".38 Special", "Who's Been Messin'");
+        add(l,"10cc", "I'm Not In Love");
+        add(l,"3 Doors Down", "Kryptonite");
+        add(l,"311", "Amber");
+        add(l,"4 Non Blondes", "What's Up?");
+        add(l,"50 Cent", "In Da Club");
   print_library(l);
   return 0;
 }
