@@ -40,5 +40,8 @@ int main(int argc, char* argv[]) {
         add(l,"4 Non Blondes", "What's Up?");
         add(l,"50 Cent", "In Da Club");
   print_library(l);
+        delete_song(l,"AC/DC", "Thunderstruck");
+        delete_song(l,"AC/DC", "Paranoid Android");
+  print_library(l);
   return 0;
 }
