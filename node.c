@@ -92,9 +92,13 @@ void print(struct song_node* list){
   if (list == NULL){
     return;
   }
-  printf("%s: ", list->artist);
+  int c = conLet(*list->artist);
+  if (c < 65 || c > 90){
+    c = 45;
+  }
+  printf("%c: ", conLet(c));
   for(struct song_node* i = list; i != NULL; i=i->next){
-    printf("[%s] ", i->title);
+    printf("[%s, %s] ", i->artist, i->title);
   }
   printf("\n");
 }
@@ -105,10 +109,13 @@ struct song_node* find(struct song_node* list, char*a, char*t){
   struct song_node* i = list;
   while (i != NULL){
     if (!strcmpi(a, i->artist) && !strcmpi(t, i->title)){
+       printf("node found! [%s, %s]", i->artist, i->title);
+       printf("\n");
        return i;
     }
     i = i-> next;
   }
+  printf("node not found");
   return i;   //null
 }
 
@@ -118,10 +125,14 @@ struct song_node* lost(struct song_node* list, char*a){
    struct song_node* i = list;
    while (i != NULL){
     if (!strcmpi(a, i->artist)){
+       printf("artist found! ");
+       printArtist(list, a);
+       printf("\n");
        return i;
     }
     i = i-> next;
    }
+   printf("artist not found");
   return i;
 }
 
@@ -182,9 +193,11 @@ struct song_node * free_list(struct song_node * list){
   struct song_node* orig;
   while(list != NULL){
     orig = list->next;
+    printf("\n freeing [%s, %s]", list->artist, list->title);
     free(list);
     list = orig;
   }
+  printf("\n");
   return NULL;
 }
 
@@ -194,10 +207,10 @@ void printArtist(struct song_node * list, char*a){
      struct song_node* i = list;
      while (i != NULL){
         if (!strcmpi(i->artist, a)){
-            printf("%s : %s ", a, i->title);
+            printf("[%s] ", i->title);
             i = i->next;
             while(i != NULL && !strcmpi(i->artist, a)){
-                printf("%s", i->title);
+                printf("[%s] ", i->title);
                 i = i->next;
             }
            return;
@@ -212,7 +225,7 @@ void printArtist(struct song_node * list, char*a){
     while (i != NULL){
       for(int j = 0; j < n; j++){
         if (ref == pool[j]){
-          printf("[%s %s]  ", i->artist, i->title);
+          printf("[%s, %s]  ", i->artist, i->title);
           break;
         }
       }

@@ -24,4 +24,6 @@ int delete_song(struct song_node ** library, char* artist, char* title );
 
 void reset(struct song_node ** library);
 
+void reseti(struct song_node ** library, char c);
+
 #endif

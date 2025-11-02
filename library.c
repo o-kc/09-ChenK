@@ -21,18 +21,23 @@ void add(struct song_node ** library, char* artist, char* title){
 
 struct song_node * search_song(struct song_node ** library, char* artist, char* title ){
   return find(library[conSym(*artist)-'A'], artist, title);
+
 }
 
 struct song_node * search_artist(struct song_node ** library, char* artist ){
-   return lost(library[conSym(*artist)-'A'], artist);
+  return lost(library[conSym(*artist)-'A'], artist);
+
 }
 
 void print_letter(struct song_node ** library, char letter){
    print(library[conSym(letter)-'A']);
+
 }
 
 void print_artist(struct song_node ** library, char* artist){
+   printf("%s: ", artist);
    printArtist(library[conSym(*artist)-'A'], artist);
+   printf("\n");
 }
 
 void print_library(struct song_node ** library) {
@@ -70,4 +75,10 @@ void reset(struct song_node ** library) {
 for(int i = 0; i<27; i++){
          free_list(library[i]);
    }
+ }
+
+void reseti(struct song_node ** library, char c) {
+
+            free_list(library[conSym(c)-'A']);
+
 }

@@ -44,5 +44,10 @@ int main(int argc, char* argv[]) {
         delete_song(l,"AC/DC", "Paranoid Android");
   print_library(l);
   print_artist(l, "Powerglove");
+  search_song(l, "3 Doors Down", "Kryptonite");
+  search_artist(l, "Powerglove");
+  shuffle(l, 1);
+  reseti(l, 'p');
+  search_artist(l, "Powerglove");
   return 0;
 }
