@@ -37,7 +37,7 @@ void print_letter(struct song_node ** library, char letter){
 void print_artist(struct song_node ** library, char* artist){
    printf("%s: ", artist);
    printArtist(library[conSym(*artist)-'A'], artist);
-   printf("\n");
+
 }
 
 void print_library(struct song_node ** library) {
@@ -56,6 +56,7 @@ void shuffle (struct song_node ** library, int n) {
     pool[i] = rand() % s;  //determine songs to extract
   }                            //will need to create helper method in list
   int ref = 0;   //to determine order and pick song from that order
+  printf("randomizing: ");
   for(int i = 0; i<27; i++){
     ref = shuffleHelp(library[i], ref, pool, n);
   }
@@ -80,5 +81,5 @@ for(int i = 0; i<27; i++){
 void reseti(struct song_node ** library, char c) {
 
             free_list(library[conSym(c)-'A']);
-
+    
 }

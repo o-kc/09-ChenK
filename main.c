@@ -41,13 +41,21 @@ int main(int argc, char* argv[]) {
         add(l,"50 Cent", "In Da Club");
   print_library(l);
         delete_song(l,"AC/DC", "Thunderstruck");
-        delete_song(l,"AC/DC", "Paranoid Android");
+        delete_song(l,"Radiohead", "Paranoid Android");
+  printf("\n\ndeleted capitalized duplicates (AC/DC & Radiohead)\n");
   print_library(l);
+  printf("\n\nprinting Powerglove\n");
   print_artist(l, "Powerglove");
+  printf("\n\nsearching for Kryptonite\n");
   search_song(l, "3 Doors Down", "Kryptonite");
+  printf("\n\nsearching for Powerglove; same result\n");
   search_artist(l, "Powerglove");
-  shuffle(l, 1);
+  int n = 1;
+  printf("\n\nshuffling %d song(s)\n", n);
+  shuffle(l, n);
+  printf("\n\n\ndeleting P row");
   reseti(l, 'p');
+  printf("\n\nsearching for Powerglove again now that P is deleted\n");
   search_artist(l, "Powerglove");
   return 0;
 }

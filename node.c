@@ -115,7 +115,7 @@ struct song_node* find(struct song_node* list, char*a, char*t){
     }
     i = i-> next;
   }
-  printf("node not found");
+  printf("node not found\n");
   return i;   //null
 }
 
@@ -127,12 +127,11 @@ struct song_node* lost(struct song_node* list, char*a){
     if (!strcmpi(a, i->artist)){
        printf("artist found! ");
        printArtist(list, a);
-       printf("\n");
        return i;
     }
     i = i-> next;
    }
-   printf("artist not found");
+   printf("artist not found\n");
   return i;
 }
 
@@ -190,14 +189,15 @@ struct song_node* remov(struct song_node* list, char*a, char*t){
 
 
 struct song_node * free_list(struct song_node * list){
+  printf("\nfreeing: \n");
   struct song_node* orig;
   while(list != NULL){
     orig = list->next;
-    printf("\n freeing [%s, %s]", list->artist, list->title);
+    printf("[%s, %s]\n", list->artist, list->title);
     free(list);
     list = orig;
   }
-  printf("\n");
+
   return NULL;
 }
 
@@ -213,11 +213,12 @@ void printArtist(struct song_node * list, char*a){
                 printf("[%s] ", i->title);
                 i = i->next;
             }
+            printf("\n");
            return;
         }
         i = i->next;
      }
-     printf("artist not found");
+     printf("artist not found\n");
    }
 
   int shuffleHelp(struct song_node * list, int ref, int* pool, int n){
